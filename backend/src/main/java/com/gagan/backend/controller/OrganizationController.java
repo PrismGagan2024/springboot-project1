@@ -6,10 +6,9 @@ import com.gagan.backend.entity.Organization;
 import com.gagan.backend.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/org")
@@ -20,6 +19,24 @@ public class OrganizationController {
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO<Organization>> registerOrganization(@RequestBody OrganizationDTO organizationDTO) {
         ResponseDTO<Organization> response = organizationService.registerOrganization(organizationDTO);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ResponseDTO<List<Organization>>> getAllOrganisation() {
+        ResponseDTO<List<Organization>> response = organizationService.getAllOrganisation();
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDTO<Organization>> getOrganisationById(@PathVariable("id") String orgId) {
+        ResponseDTO<Organization> response = organizationService.getOrganisationById(orgId);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<ResponseDTO<Organization>> updateOrganization(@PathVariable("id") String orgId, @RequestBody OrganizationDTO organizationDTO) {
+        ResponseDTO<Organization> response = organizationService.editOrganizationById(orgId, organizationDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
