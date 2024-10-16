@@ -17,24 +17,28 @@ public class OrganizationController {
     private OrganizationService organizationService;
 
     @PostMapping("/register")
+    @CrossOrigin
     public ResponseEntity<ResponseDTO<Organization>> registerOrganization(@RequestBody OrganizationDTO organizationDTO) {
         ResponseDTO<Organization> response = organizationService.registerOrganization(organizationDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     @GetMapping("/all")
+    @CrossOrigin
     public ResponseEntity<ResponseDTO<List<Organization>>> getAllOrganisation() {
         ResponseDTO<List<Organization>> response = organizationService.getAllOrganisation();
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin
     public ResponseEntity<ResponseDTO<Organization>> getOrganisationById(@PathVariable("id") String orgId) {
         ResponseDTO<Organization> response = organizationService.getOrganisationById(orgId);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     @PutMapping("/edit/{id}")
+    @CrossOrigin
     public ResponseEntity<ResponseDTO<Organization>> updateOrganization(@PathVariable("id") String orgId, @RequestBody OrganizationDTO organizationDTO) {
         ResponseDTO<Organization> response = organizationService.editOrganizationById(orgId, organizationDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
