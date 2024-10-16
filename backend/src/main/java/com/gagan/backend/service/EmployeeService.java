@@ -119,8 +119,8 @@ public class EmployeeService {
         return new ResponseDTO<>(true, 200, "Employee deleted successfully", null);
     }
 
-    public ResponseDTO<Employee> updateEmployee(String empId, EmployeeDTO employeeDTO) {
-        Optional<Employee> employee = employeeRepo.findById(empId);
+    public ResponseDTO<Employee> editEmployee(String empId, EmployeeDTO employeeDTO) {
+        Optional<Employee> employee = employeeRepo.findByIdAndActiveTrue(empId);
         if (!employee.isPresent()) {
             return new ResponseDTO<>(false, 404, "Employee not found", null);
         }

@@ -45,10 +45,10 @@ public class EmployeeController {
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/edit/{id}")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Employee>> updateEmployee(@PathVariable("id") String empId, EmployeeDTO employeeDTO) {
-        ResponseDTO<Employee> response = employeeService.updateEmployee(empId, employeeDTO);
+    public ResponseEntity<ResponseDTO<Employee>> editEmployee(@PathVariable("id") String empId, EmployeeDTO employeeDTO) {
+        ResponseDTO<Employee> response = employeeService.editEmployee(empId, employeeDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
