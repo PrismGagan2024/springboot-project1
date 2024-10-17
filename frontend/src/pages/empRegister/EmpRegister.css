@@ -1,0 +1,29 @@
+.emp-register {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emp-registerBox {
+  width: 500px;
+  padding: 20px;
+  background: #212121;
+  border-radius: 10px;
+}
+
+.emp-inputBox {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: 1px solid #363636;
+  color: white;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.emp-registerBox > p {
+    margin-top: 10px;
+    font-size: 15px;
+}

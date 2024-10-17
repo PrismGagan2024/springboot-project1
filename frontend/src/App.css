@@ -33,6 +33,10 @@ button {
   user-select: none;
 }
 
+.link {
+  color: #3b82f6;
+}
+
 .loading {
   animation: spin 1s linear infinite;
 }
