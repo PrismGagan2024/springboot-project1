@@ -1,6 +1,7 @@
 package com.gagan.backend.service;
 
 import com.gagan.backend.dto.EmployeeDTO;
+import com.gagan.backend.dto.EmployeeEditDTO;
 import com.gagan.backend.dto.EmployeeLoginDTO;
 import com.gagan.backend.dto.ResponseDTO;
 import com.gagan.backend.entity.Credential;
@@ -29,8 +30,8 @@ public class EmployeeService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
-    public ResponseDTO<Employee> registerEmployeeByOrgId(String orgId, EmployeeDTO employeeDTO) {
-        Optional<Organization> organization = organizationRepo.findById(orgId);
+    public ResponseDTO<Employee> registerEmployeeByOrgId(Long orgId, EmployeeDTO employeeDTO) {
+        Optional<Organization> organization = organizationRepo.findByOrgId(orgId);
         if(!organization.isPresent()) {
             return new ResponseDTO<>(false, 404, "Organization not found!", null);
         }
@@ -62,8 +63,8 @@ public class EmployeeService {
         return new ResponseDTO<>(true, 201, "Employee registered successfully", null);
     }
 
-    public ResponseDTO<Employee> loginEmployeeByOrgId(String orgId, EmployeeLoginDTO loginDTO) {
-        Optional<Organization> organization = organizationRepo.findById(orgId);
+    public ResponseDTO<Employee> loginEmployeeByOrgId(Long orgId, EmployeeLoginDTO loginDTO) {
+        Optional<Organization> organization = organizationRepo.findByOrgId(orgId);
         if(!organization.isPresent()) {
             return new ResponseDTO<>(false, 404, "Organization not found!", null);
         }
@@ -119,7 +120,7 @@ public class EmployeeService {
         return new ResponseDTO<>(true, 200, "Employee deleted successfully", null);
     }
 
-    public ResponseDTO<Employee> editEmployee(String empId, EmployeeDTO employeeDTO) {
+    public ResponseDTO<Employee> editEmployee(String empId, EmployeeEditDTO employeeEditDTO) {
         Optional<Employee> employee = employeeRepo.findByIdAndActiveTrue(empId);
         if (!employee.isPresent()) {
             return new ResponseDTO<>(false, 404, "Employee not found", null);
@@ -127,20 +128,20 @@ public class EmployeeService {
 
         Employee updatedEmployee = employee.get();
 
-        if(employeeDTO.getFirstName() != null){
-            updatedEmployee.setFirstName(employeeDTO.getFirstName());
+        if(employeeEditDTO.getFirstName() != null){
+            updatedEmployee.setFirstName(employeeEditDTO.getFirstName());
         }
-        if(employeeDTO.getLastName() != null){
-            updatedEmployee.setLastName(employeeDTO.getLastName());
+        if(employeeEditDTO.getLastName() != null){
+            updatedEmployee.setLastName(employeeEditDTO.getLastName());
         }
-        if(employeeDTO.getEmail() != null){
-            updatedEmployee.setEmail(employeeDTO.getEmail());
+        if(employeeEditDTO.getEmail() != null){
+            updatedEmployee.setEmail(employeeEditDTO.getEmail());
         }
-        if(employeeDTO.getContact() != null){
-            updatedEmployee.setContact(employeeDTO.getContact());
+        if(employeeEditDTO.getContact() != null){
+            updatedEmployee.setContact(employeeEditDTO.getContact());
         }
-        if(employeeDTO.getAddress() != null){
-            updatedEmployee.setAddress(employeeDTO.getAddress());
+        if(employeeEditDTO.getAddress() != null){
+            updatedEmployee.setAddress(employeeEditDTO.getAddress());
         }
 
         Employee resEmployee = employeeRepo.save(updatedEmployee);

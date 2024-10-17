@@ -1,8 +1,15 @@
 import React from "react";
 import "./OrgBox.css";
 import { FiEdit3 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const OrgBox = ({ org }) => {
+  const navigate = useNavigate();
+
+  const handleRegisterEmployee = () => {
+    navigate(`/emp/register?org=${org?.orgId}`);
+  };
+
   return (
     <div className="org-box">
       <div className="org-box-content">
@@ -20,7 +27,9 @@ const OrgBox = ({ org }) => {
         </div>
 
         <div className="org-box-buttons">
-          <button className="org-box-button">Employee</button>
+          <button className="org-box-button" onClick={handleRegisterEmployee}>
+            Employee
+          </button>
           <button className="org-edit-button">
             <FiEdit3 size={24} />
           </button>

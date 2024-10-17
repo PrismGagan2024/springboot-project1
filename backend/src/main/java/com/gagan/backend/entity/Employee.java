@@ -22,7 +22,7 @@ public class Employee {
     private String email;
     private String address;
     private Long contact;
-    private String organizationId;
+    private Long organizationId;
 
     private Boolean active;
 

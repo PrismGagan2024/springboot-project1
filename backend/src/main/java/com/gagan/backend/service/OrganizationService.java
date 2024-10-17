@@ -15,6 +15,9 @@ public class OrganizationService {
     @Autowired
     private OrganizationRepo organizationRepo;
 
+    @Autowired
+    private SequenceGenerator sequenceGenerator;
+
     public ResponseDTO<Organization> registerOrganization(OrganizationDTO organizationDTO) {
         Optional<Organization> organizationOpt = organizationRepo.findByEmail(organizationDTO.getEmail());
         if(organizationOpt.isPresent()) {
@@ -22,6 +25,7 @@ public class OrganizationService {
         }
 
         Organization org = new Organization();
+        org.setOrgId(sequenceGenerator.getNextSequence());
 
         org.setName(organizationDTO.getName());
         org.setEmail(organizationDTO.getEmail());
@@ -37,8 +41,9 @@ public class OrganizationService {
         return new ResponseDTO<>(true, 200, "Organization retrieved successfully", organizations);
     }
 
-    public ResponseDTO<Organization> getOrganisationById(String orgId) {
-        Optional<Organization> organization = organizationRepo.findById(orgId);
+    public ResponseDTO<Organization> getOrganisationById(Long orgId) {
+        Optional<Organization> organization = organizationRepo.findByOrgId(orgId);
+        System.out.println(organization);
         if(!organization.isPresent()) {
             return new ResponseDTO<>(false, 404, "Organization not found!", null);
         }

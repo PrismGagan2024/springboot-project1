@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./EmpRegister.css";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { empRoute } from "../../routes";
 import { toast } from "react-toastify";
 import { VscLoading } from "react-icons/vsc";
@@ -17,6 +17,9 @@ const EmpRegister = () => {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const orgId = searchParams.get("org");
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,10 +30,13 @@ const EmpRegister = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(`${empRoute}/register`, formData);
+      const res = await axios.post(
+        `${empRoute}/register?org=${orgId}`,
+        formData
+      );
       if (res?.data.success) {
         toast.success("Employee registered successfully!");
-        navigate("/emp/login");
+        navigate(`/emp/login?org=${orgId}`);
       }
     } catch (err) {
       toast.error("Failed to register employee. Please try again later.");
@@ -101,7 +107,7 @@ const EmpRegister = () => {
         </form>
         <p>
           Already have an account?{" "}
-          <Link className="link" to={"/emp/login"}>
+          <Link className="link" to={`/emp/login?org=${orgId}`}>
             Login
           </Link>
         </p>

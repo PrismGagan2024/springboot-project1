@@ -1,0 +1,74 @@
+.emp-box {
+  width: 340px;
+  background: #212121;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.emp-box:hover {
+  transform: scale(1.05);
+}
+
+.emp-box-content {
+  padding: 20px;
+  color: white;
+}
+
+.emp-name {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #f1f1f1;
+}
+
+.emp-details {
+  margin: 20px 0;
+}
+
+.emp-email,
+.emp-contact,
+.emp-address {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.emp-box-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.emp-box-button {
+  padding: 5px 15px;
+  background-color: #f63b3b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.emp-box-button:hover {
+  background-color: #eb2525;
+}
+
+.emp-edit-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #363636;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.emp-edit-button:hover {
+  background-color: #4a4a4a;
+}

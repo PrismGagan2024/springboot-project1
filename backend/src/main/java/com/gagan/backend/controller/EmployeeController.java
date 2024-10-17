@@ -1,6 +1,7 @@
 package com.gagan.backend.controller;
 
 import com.gagan.backend.dto.EmployeeDTO;
+import com.gagan.backend.dto.EmployeeEditDTO;
 import com.gagan.backend.dto.EmployeeLoginDTO;
 import com.gagan.backend.dto.ResponseDTO;
 import com.gagan.backend.entity.Employee;
@@ -19,14 +20,14 @@ public class EmployeeController {
 
     @PostMapping("/register")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Employee>> registerEmployeeByOrgId(@RequestParam(name = "org") String orgId, @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<ResponseDTO<Employee>> registerEmployeeByOrgId(@RequestParam(name = "org") Long orgId, @RequestBody EmployeeDTO employeeDTO) {
         ResponseDTO<Employee> response = employeeService.registerEmployeeByOrgId(orgId, employeeDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     @PostMapping("/login")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Employee>> loginEmployeeByOrgId(@RequestParam(name = "org") String orgId, @RequestBody EmployeeLoginDTO loginDTO) {
+    public ResponseEntity<ResponseDTO<Employee>> loginEmployeeByOrgId(@RequestParam(name = "org") Long orgId, @RequestBody EmployeeLoginDTO loginDTO) {
         ResponseDTO<Employee> response = employeeService.loginEmployeeByOrgId(orgId, loginDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
@@ -47,8 +48,8 @@ public class EmployeeController {
 
     @PutMapping("/edit/{id}")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Employee>> editEmployee(@PathVariable("id") String empId, EmployeeDTO employeeDTO) {
-        ResponseDTO<Employee> response = employeeService.editEmployee(empId, employeeDTO);
+    public ResponseEntity<ResponseDTO<Employee>> editEmployee(@PathVariable("id") String empId, EmployeeEditDTO employeeEditDTO) {
+        ResponseDTO<Employee> response = employeeService.editEmployee(empId, employeeEditDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }

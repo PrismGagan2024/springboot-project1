@@ -32,7 +32,7 @@ public class OrganizationController {
 
     @GetMapping("/{id}")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Organization>> getOrganisationById(@PathVariable("id") String orgId) {
+    public ResponseEntity<ResponseDTO<Organization>> getOrganisationById(@PathVariable("id") Long orgId) {
         ResponseDTO<Organization> response = organizationService.getOrganisationById(orgId);
         return ResponseEntity.status(response.getStatus()).body(response);
     }

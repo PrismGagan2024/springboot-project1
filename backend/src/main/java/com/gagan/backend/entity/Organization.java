@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class Organization {
     @Id
     private String id;
+    private Long orgId;
     private String name;
     private String email;
     private Long contact;
