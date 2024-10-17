@@ -1,0 +1,14 @@
+.org-home {
+  width: 100%;
+  height: 100%;
+}
+
+.org-homeContainer {
+  padding: 20px;
+}
+
+.org-boxContainer {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}

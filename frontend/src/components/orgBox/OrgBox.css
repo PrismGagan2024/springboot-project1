@@ -1,0 +1,74 @@
+.org-box {
+  width: 340px;
+  background: #212121;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.org-box:hover {
+  transform: scale(1.05);
+}
+
+.org-box-content {
+  padding: 20px;
+  color: white;
+}
+
+.org-name {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #f1f1f1;
+}
+
+.org-details {
+  margin: 20px 0;
+}
+
+.org-email,
+.org-contact,
+.org-address {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.org-box-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.org-box-button {
+  padding: 5px 15px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.org-box-button:hover {
+  background-color: #2563eb;
+}
+
+.org-edit-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #363636;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.org-edit-button:hover {
+  background-color: #4a4a4a;
+}
