@@ -21,7 +21,7 @@ public class OrganizationService {
     public ResponseDTO<Organization> registerOrganization(OrganizationRegisterDTO organizationRegisterDTO) {
         Optional<Organization> organizationOpt = organizationRepo.findByEmail(organizationRegisterDTO.getEmail());
         if(organizationOpt.isPresent()) {
-            return new ResponseDTO<>(false, 400, "Organization already exist!", null);
+            return new ResponseDTO<>(false, 400, "Organization already exist!", null, null);
         }
 
         Organization org = new Organization();
@@ -33,30 +33,30 @@ public class OrganizationService {
         org.setContact(organizationRegisterDTO.getContact());
 
         organizationRepo.save(org);
-        return new ResponseDTO<>(true, 201, "Organization created successfully", null);
+        return new ResponseDTO<>(true, 201, "Organization created successfully", null, null);
     }
 
     public ResponseDTO<List<Organization>> getAllOrganisation() {
         List<Organization> organizations = organizationRepo.findAll();
-        return new ResponseDTO<>(true, 200, "Organization retrieved successfully", organizations);
+        return new ResponseDTO<>(true, 200, "Organization retrieved successfully",null, organizations);
     }
 
     public ResponseDTO<Organization> getOrganisationById(Long orgId) {
         Optional<Organization> organization = organizationRepo.findByOrgId(orgId);
         System.out.println(organization);
         if(!organization.isPresent()) {
-            return new ResponseDTO<>(false, 404, "Organization not found!", null);
+            return new ResponseDTO<>(false, 404, "Organization not found!", null, null);
         }
 
         Organization resOrg = organization.get();
-        return new ResponseDTO<>(true, 200, "Organization retrieved successfully", resOrg);
+        return new ResponseDTO<>(true, 200, "Organization retrieved successfully",null, resOrg);
     }
 
     public ResponseDTO<Organization> editOrganizationById(Long orgId, OrganizationRegisterDTO organizationRegisterDTO) {
         Optional<Organization> organizationOptional = organizationRepo.findByOrgId(orgId);
 
         if (organizationOptional.isEmpty()) {
-            return new ResponseDTO<>(false, 404, "Organization not found!", null);
+            return new ResponseDTO<>(false, 404, "Organization not found!", null, null);
         }
 
         Organization existingOrganization = organizationOptional.get();
@@ -76,7 +76,7 @@ public class OrganizationService {
 
         Organization updatedOrganization = organizationRepo.save(existingOrganization);
 
-        return new ResponseDTO<>(true, 200, "Organization updated successfully", updatedOrganization);
+        return new ResponseDTO<>(true, 200, "Organization updated successfully", null, updatedOrganization);
     }
 
 }

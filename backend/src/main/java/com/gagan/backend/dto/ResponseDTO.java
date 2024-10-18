@@ -11,5 +11,6 @@ public class ResponseDTO<T> {
     private boolean success;
     private int status;
     private String message;
+    private String token;
     private T data;
 }
