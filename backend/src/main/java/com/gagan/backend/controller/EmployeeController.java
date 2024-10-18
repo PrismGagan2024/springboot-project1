@@ -34,7 +34,7 @@ public class EmployeeController {
 
     @GetMapping("/all")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<List<Employee>>> getAllEmployeeByOrgId(@RequestParam(name = "org") String orgId) {
+    public ResponseEntity<ResponseDTO<List<Employee>>> getAllEmployeeByOrgId(@RequestParam(name = "org") Long orgId) {
         ResponseDTO<List<Employee>> response = employeeService.getAllEmployeeByOrgId(orgId);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
@@ -48,7 +48,7 @@ public class EmployeeController {
 
     @PutMapping("/edit/{id}")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Employee>> editEmployee(@PathVariable("id") String empId, EmployeeEditDTO employeeEditDTO) {
+    public ResponseEntity<ResponseDTO<Employee>> editEmployee(@PathVariable("id") String empId, @RequestBody EmployeeEditDTO employeeEditDTO) {
         ResponseDTO<Employee> response = employeeService.editEmployee(empId, employeeEditDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }

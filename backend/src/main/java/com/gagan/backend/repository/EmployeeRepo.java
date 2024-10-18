@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepo extends MongoRepository<Employee, String> {
     Optional<Employee> findByEmail(String email);
-    List<Employee> findByOrganizationIdAndActiveTrue(String orgId);
+    List<Employee> findByOrganizationIdAndActiveTrue(Long orgId);
     Optional<Employee> findByIdAndActiveTrue(String empId);
 }

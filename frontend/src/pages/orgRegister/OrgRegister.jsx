@@ -32,6 +32,7 @@ const OrgRegister = () => {
       }
     } catch (err) {
       toast.error("Failed to register organization. Please try again later.");
+      console.log(err);
     } finally {
       setLoading(false);
     }

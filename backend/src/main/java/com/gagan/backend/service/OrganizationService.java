@@ -1,6 +1,6 @@
 package com.gagan.backend.service;
 
-import com.gagan.backend.dto.OrganizationDTO;
+import com.gagan.backend.dto.OrganizationRegisterDTO;
 import com.gagan.backend.dto.ResponseDTO;
 import com.gagan.backend.entity.Organization;
 import com.gagan.backend.repository.OrganizationRepo;
@@ -18,8 +18,8 @@ public class OrganizationService {
     @Autowired
     private SequenceGenerator sequenceGenerator;
 
-    public ResponseDTO<Organization> registerOrganization(OrganizationDTO organizationDTO) {
-        Optional<Organization> organizationOpt = organizationRepo.findByEmail(organizationDTO.getEmail());
+    public ResponseDTO<Organization> registerOrganization(OrganizationRegisterDTO organizationRegisterDTO) {
+        Optional<Organization> organizationOpt = organizationRepo.findByEmail(organizationRegisterDTO.getEmail());
         if(organizationOpt.isPresent()) {
             return new ResponseDTO<>(false, 400, "Organization already exist!", null);
         }
@@ -27,10 +27,10 @@ public class OrganizationService {
         Organization org = new Organization();
         org.setOrgId(sequenceGenerator.getNextSequence());
 
-        org.setName(organizationDTO.getName());
-        org.setEmail(organizationDTO.getEmail());
-        org.setAddress(organizationDTO.getAddress());
-        org.setContact(organizationDTO.getContact());
+        org.setName(organizationRegisterDTO.getName());
+        org.setEmail(organizationRegisterDTO.getEmail());
+        org.setAddress(organizationRegisterDTO.getAddress());
+        org.setContact(organizationRegisterDTO.getContact());
 
         organizationRepo.save(org);
         return new ResponseDTO<>(true, 201, "Organization created successfully", null);
@@ -52,29 +52,31 @@ public class OrganizationService {
         return new ResponseDTO<>(true, 200, "Organization retrieved successfully", resOrg);
     }
 
-    public ResponseDTO<Organization> editOrganizationById(String orgId, OrganizationDTO organizationDTO) {
-        Optional<Organization> organization = organizationRepo.findById(orgId);
-        if(!organization.isPresent()) {
+    public ResponseDTO<Organization> editOrganizationById(Long orgId, OrganizationRegisterDTO organizationRegisterDTO) {
+        Optional<Organization> organizationOptional = organizationRepo.findByOrgId(orgId);
+
+        if (organizationOptional.isEmpty()) {
             return new ResponseDTO<>(false, 404, "Organization not found!", null);
         }
 
-        Organization updatedOrganization = organization.get();
+        Organization existingOrganization = organizationOptional.get();
 
-        if(organizationDTO.getName() != null) {
-            updatedOrganization.setName(organizationDTO.getName());
+        if (organizationRegisterDTO.getName() != null) {
+            existingOrganization.setName(organizationRegisterDTO.getName());
         }
-        if(organizationDTO.getEmail() != null) {
-            updatedOrganization.setEmail(organizationDTO.getEmail());
+        if (organizationRegisterDTO.getEmail() != null) {
+            existingOrganization.setEmail(organizationRegisterDTO.getEmail());
         }
-        if(organizationDTO.getAddress() != null) {
-            updatedOrganization.setAddress(organizationDTO.getAddress());
+        if (organizationRegisterDTO.getAddress() != null) {
+            existingOrganization.setAddress(organizationRegisterDTO.getAddress());
         }
-        if(organizationDTO.getContact() != null) {
-            updatedOrganization.setContact(organizationDTO.getContact());
+        if (organizationRegisterDTO.getContact() != null) {
+            existingOrganization.setContact(organizationRegisterDTO.getContact());
         }
 
-        Organization resOrg = organizationRepo.save(updatedOrganization);
+        Organization updatedOrganization = organizationRepo.save(existingOrganization);
 
-        return new ResponseDTO<>(true, 201, "Organization updated successfully", resOrg);
+        return new ResponseDTO<>(true, 200, "Organization updated successfully", updatedOrganization);
     }
+
 }

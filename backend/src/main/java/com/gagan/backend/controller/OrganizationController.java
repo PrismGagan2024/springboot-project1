@@ -1,9 +1,10 @@
 package com.gagan.backend.controller;
 
-import com.gagan.backend.dto.OrganizationDTO;
+import com.gagan.backend.dto.OrganizationRegisterDTO;
 import com.gagan.backend.dto.ResponseDTO;
 import com.gagan.backend.entity.Organization;
 import com.gagan.backend.service.OrganizationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class OrganizationController {
 
     @PostMapping("/register")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Organization>> registerOrganization(@RequestBody OrganizationDTO organizationDTO) {
-        ResponseDTO<Organization> response = organizationService.registerOrganization(organizationDTO);
+    public ResponseEntity<ResponseDTO<Organization>> registerOrganization(@Valid @RequestBody OrganizationRegisterDTO organizationRegisterDTO) {
+        ResponseDTO<Organization> response = organizationService.registerOrganization(organizationRegisterDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 
@@ -39,8 +40,8 @@ public class OrganizationController {
 
     @PutMapping("/edit/{id}")
     @CrossOrigin
-    public ResponseEntity<ResponseDTO<Organization>> updateOrganization(@PathVariable("id") String orgId, @RequestBody OrganizationDTO organizationDTO) {
-        ResponseDTO<Organization> response = organizationService.editOrganizationById(orgId, organizationDTO);
+    public ResponseEntity<ResponseDTO<Organization>> updateOrganization(@PathVariable("id") Long orgId, @RequestBody OrganizationRegisterDTO organizationRegisterDTO) {
+        ResponseDTO<Organization> response = organizationService.editOrganizationById(orgId, organizationRegisterDTO);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }

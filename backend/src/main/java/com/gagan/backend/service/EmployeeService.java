@@ -95,8 +95,8 @@ public class EmployeeService {
         return new ResponseDTO<>(true, 200, "Login successful", employee);
     }
 
-    public ResponseDTO<List<Employee>> getAllEmployeeByOrgId(String orgId) {
-        Optional<Organization> organization = organizationRepo.findById(orgId);
+    public ResponseDTO<List<Employee>> getAllEmployeeByOrgId(Long orgId) {
+        Optional<Organization> organization = organizationRepo.findByOrgId(orgId);
         if(!organization.isPresent()) {
             return new ResponseDTO<>(false, 404, "Organization not found!", null);
         }
@@ -121,31 +121,36 @@ public class EmployeeService {
     }
 
     public ResponseDTO<Employee> editEmployee(String empId, EmployeeEditDTO employeeEditDTO) {
-        Optional<Employee> employee = employeeRepo.findByIdAndActiveTrue(empId);
-        if (!employee.isPresent()) {
+
+        System.out.println(employeeEditDTO);
+
+        Optional<Employee> employeeOptional = employeeRepo.findByIdAndActiveTrue(empId);
+
+        if (employeeOptional.isEmpty()) {
             return new ResponseDTO<>(false, 404, "Employee not found", null);
         }
 
-        Employee updatedEmployee = employee.get();
+        Employee existingEmployee = employeeOptional.get();
 
-        if(employeeEditDTO.getFirstName() != null){
-            updatedEmployee.setFirstName(employeeEditDTO.getFirstName());
+        if (employeeEditDTO.getFirstName() != null) {
+            existingEmployee.setFirstName(employeeEditDTO.getFirstName());
         }
-        if(employeeEditDTO.getLastName() != null){
-            updatedEmployee.setLastName(employeeEditDTO.getLastName());
+        if (employeeEditDTO.getLastName() != null) {
+            existingEmployee.setLastName(employeeEditDTO.getLastName());
         }
-        if(employeeEditDTO.getEmail() != null){
-            updatedEmployee.setEmail(employeeEditDTO.getEmail());
+        if (employeeEditDTO.getEmail() != null) {
+            existingEmployee.setEmail(employeeEditDTO.getEmail());
         }
-        if(employeeEditDTO.getContact() != null){
-            updatedEmployee.setContact(employeeEditDTO.getContact());
+        if (employeeEditDTO.getContact() != null) {
+            existingEmployee.setContact(employeeEditDTO.getContact());
         }
-        if(employeeEditDTO.getAddress() != null){
-            updatedEmployee.setAddress(employeeEditDTO.getAddress());
+        if (employeeEditDTO.getAddress() != null) {
+            existingEmployee.setAddress(employeeEditDTO.getAddress());
         }
 
-        Employee resEmployee = employeeRepo.save(updatedEmployee);
+        Employee updatedEmployee = employeeRepo.save(existingEmployee);
 
-        return new ResponseDTO<>(true, 201, "Employee updated successfully", resEmployee);
+        return new ResponseDTO<>(true, 200, "Employee updated successfully", updatedEmployee);
     }
+
 }

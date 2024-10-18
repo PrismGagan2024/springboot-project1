@@ -24,7 +24,7 @@ const EmpHome = () => {
 
   useEffect(() => {
     fetchAllEmp();
-  }, [orgId]);
+  }, [orgId, allEmp]);
 
   const handleDeleteEmployee = async (id) => {
     try {
