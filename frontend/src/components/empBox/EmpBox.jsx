@@ -7,6 +7,7 @@ import ToggleEdit from "../toggleEdit/ToggleEdit";
 const EmpBox = ({ emp, handleDeleteEmployee }) => {
   const { employee } = useEmployeeContext();
   const [openEditToggle, setOpenEditToggle] = useState(false);
+  const toggleFor = "emp";
 
   const handleToggleEdit = () => {
     setOpenEditToggle(false);
@@ -51,7 +52,11 @@ const EmpBox = ({ emp, handleDeleteEmployee }) => {
       </div>
 
       {openEditToggle && (
-        <ToggleEdit handleToggleEdit={handleToggleEdit} employee={emp} />
+        <ToggleEdit
+          handleToggleEdit={handleToggleEdit}
+          data={emp}
+          toggleFor={toggleFor}
+        />
       )}
     </>
   );

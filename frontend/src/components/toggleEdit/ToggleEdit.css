@@ -59,7 +59,7 @@ textarea {
 }
 
 .save-button {
-  background-color: #4caf50;
+  background-color: #3b82f6;
   color: white;
 }
 
@@ -69,7 +69,7 @@ textarea {
 }
 
 .save-button:hover {
-  background-color: #45a049;
+  background-color: #2563eb;
 }
 
 .cancel-button:hover {

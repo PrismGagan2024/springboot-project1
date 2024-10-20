@@ -21,7 +21,7 @@ const OrgHome = () => {
     };
 
     fetchAllOrg();
-  }, []);
+  }, [allOrg]);
 
   return (
     <div className="org-home">
